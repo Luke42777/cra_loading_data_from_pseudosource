@@ -21,7 +21,8 @@ setInterval(() => {
     title: `Message nr ${index}`,
     content: `Message content no ${index}...`
   })
-}, 8000)
+}, 3000)
+
 
 class App extends Component {
 
@@ -30,16 +31,18 @@ class App extends Component {
   }
 
   getData = () => {
-    const newComments = [...data];
     if (newComments.length !== this.state.comments.length) {
       this.setState({
         comments: newComments,
       })
     }
   }
-
+  
   componentDidMount() {
-    setInterval(this.getData, 5000)
+   this.intervalIndex = setInterval(this.getData, 5000)
+  }
+  componentWillUnmount(){
+    clearInterval(this.intervalIndex);
   }
   render() {
     const comments = this.state.comments.map(comment => (
